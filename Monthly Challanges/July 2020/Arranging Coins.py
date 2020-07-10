@@ -27,7 +27,7 @@ The coins can form the following rows:
 
 Because the 4th row is incomplete, we return 3.
 '''
-SOLUTION :
+#SOLUTION :
 class Solution:
     def arrangeCoins(self, n: int) -> int:
         i = 1
