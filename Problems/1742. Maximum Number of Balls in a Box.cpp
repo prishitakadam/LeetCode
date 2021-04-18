@@ -1,3 +1,21 @@
+//Optimized Method
+//Constrain 1 <= lowLimit <= highLimit <= 10^5
+class Solution {
+public:
+    int countBalls(int lowLimit, int highLimit) {
+        int boxes[46] = {0};
+        for(int i = lowLimit; i<=highLimit; i++)
+        {
+            boxes[i%10 + i%100/10 + i%1000/100 + i%10000/1000 + i%100000/10000]++;
+        }
+        return *max_element(boxes, boxes+46);
+    }
+};
+
+
+
+
+
 class Solution {
 
 int getDigitSum(int n){
