@@ -9,52 +9,36 @@
  * };
  */
 class Solution {
-vector<int> LinkedListToVector(ListNode* head){
-   
-   vector<int> data;
-    
-    while (head != NULL) {
-        data.push_back(head->val);
-        head = head->next;
-    }
-    
-    return data;
-    
-}
-    
-bool getAns(vector<int> data, int len){
-    int* p = data.data();
-    int start, end;
-    bool ans = 1;
-    start = 0;
-    end = len - 1;
-    
-    while(start<end){
-        if(p[start]!=p[end]){
-            ans = 0;
-            break;
-        }
-        start += 1;
-        end -= 1;
-    }
-    
-    return ans;
-}
-    
 public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* curr = head, *next = NULL, *prev = NULL;
+        while(curr != NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+    
     bool isPalindrome(ListNode* head) {
+        ListNode* slow = head, *fast = head, *start = head, *rstart = NULL, *prev = NULL;
         
-        vector<int> d;
-        int len;
-        bool ans;
-        
-        d = LinkedListToVector(head);
-        len = d.size();
-        reverse(d.begin(), d.end());
+        while(fast->next != NULL && fast->next->next != NULL)
+            slow = slow->next, fast = fast->next->next;
 
-        ans = getAns(d, len);
+        prev = slow;
+        slow = slow->next;
+        prev->next = NULL;
+        rstart = reverseList(slow);
         
-        return ans;
-        
+        while(rstart != NULL && start != NULL){
+           if(rstart->val != start->val)
+               return false;
+            rstart = rstart->next;
+            start = start->next;
+        }
+        return true;
     }
 };
